@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض القاطرة الفاخرة | شاحنات ورؤوس قاطرة عالمية</title>
+    <!-- خط تجوال من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #151c2c;
+            --accent-color: #ff5e00;
+            --accent-hover: #e05300;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: #232d42;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* الهيدر وشريط التنقل */
+        header {
+            background: rgba(21, 28, 44, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span { color: var(--accent-color); }
+
+        .contact-btn-top {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .contact-btn-top:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 0 15px rgba(255, 94, 0, 0.4);
+        }
+
+        /* واجهة البداية - Hero Section */
+        .hero {
+            padding: 160px 20px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(11,15,25,0.7) 0%, var(--bg-color) 100%), 
+                        url('https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1920&q=80') center/cover;
+            background-attachment: fixed;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* الفلترة والتصفية */
+        .filter-section {
+            max-width: 1300px;
+            margin: -40px auto 40px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .filter-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: white;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        /* شبكة الشاحنات */
+        .trucks-container {
+            max-width: 1300px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .trucks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .truck-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .truck-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 94, 0, 0.3);
+        }
+
+        .image-wrapper {
+            position: relative;
+            height: 230px;
+            overflow: hidden;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .truck-card:hover .image-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(11, 15, 25, 0.8);
+            backdrop-filter: blur(5px);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid rgba(255, 94, 0, 0.3);
+        }
+
+        .truck-details {
+            padding: 25px;
+        }
+
+        .truck-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .truck-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 15px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .spec-item {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spec-item i {
+            color: var(--accent-color);
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-wa {
+            flex: 1;
+            background: #25D366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-wa:hover {
+            background: #1eb956;
+        }
+
+        /* الفوتر */
+        footer {
+            background: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .trucks-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الشريط العلوي -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-truck-front"></i>
+                القاطرة<span>الفاخرة</span>
+            </a>
+            <a href="https://wa.me/966500000000" target="_blank" class="contact-btn-top">
+                <i class="fa-brands fa-whatsapp"></i> تواصل معنا
+            </a>
+        </div>
+    </header>
+
+    <!-- الهيرو سكشن -->
+    <section class="hero">
+        <h1>رؤوس قاطرة بمواصفات عالمية</h1>
+        <p>أسطولنا يضم أفضل الماركات الأوروبية الجاهزة للعمل الشاق والتسليم الفوري.</p>
+    </section>
+
+    <!-- خيارات التصفية والفلترة -->
+    <div class="filter-section">
+        <div class="filter-box">
+            <div class="filter-group">
+                <label>الشركة المصنعة</label>
+                <select>
+                    <option>الكل</option>
+                    <option>مرسيدس بنز (Mercedes-Benz)</option>
+                    <option>مان (MAN)</option>
+                    <option>فولفو (Volvo)</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>سنة الصنع</label>
+                <select>
+                    <option>الكل</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>نظام الدفع</label>
+                <select>
+                    <option>الكل</option>
+                    <option>4x2</option>
+                    <option>6x4</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- شبكة عرض الشاحنات -->
+    <div class="trucks-container">
+        <div class="trucks-grid">
+
+            <!-- شاحنة 1 -->
+            <div class="truck-card">
+                <div class="image-wrapper">
+                    <span class="tag">حالة ممتازة</span>
+                    <img src="https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&fit=crop&w=800&q=80" alt="مرسيدس آكتروس">
+                </div>
+                <div class="truck-details">
+                    <div class="truck-title">مرسيدس آكتروس 1845 Actros</div>
+                    <div class="truck-price">210,000 $</div>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item"><i class="fa-solid fa-calendar"></i> الموديل: 2022</div>
+                        <div class="spec-item"><i class="fa-solid fa-gauge-high"></i> القوة: 450 حصان</div>
+                        <div class="spec-item"><i class="fa-solid fa-gears"></i> القير: أوتوماتيك</div>
+                        <div class="spec-item"><i class="fa-solid fa-truck"></i> الدفع: 4x2</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="https://wa.me/966500000000?text=استفسار%20عن%20مرسيدس%20آكتروس%201845" class="btn-wa" target="_blank">
+                            <i class="fa-brands fa-whatsapp"></i> طلب الشاحنة
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شاحنة 2 -->
+            <div class="truck-card">
+                <div class="image-wrapper">
+                    <span class="tag">وارد ألمانيا</span>
+                    <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80" alt="فولفو FH">
+                </div>
+                <div class="truck-details">
+                    <div class="truck-title">فولفو FH 500 Globetrotter</div>
+                    <div class="truck-price">245,000 $</div>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item"><i class="fa-solid fa-calendar"></i> الموديل: 2023</div>
+                        <div class="spec-item"><i class="fa-solid fa-gauge-high"></i> القوة: 500 حصان</div>
+                        <div class="spec-item"><i class="fa-solid fa-gears"></i> القير: أوتوماتيك</div>
+                        <div class="spec-item"><i class="fa-solid fa-truck"></i> الدفع: 4x2</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="https://wa.me/966500000000?text=استفسار%20عن%20فولفو%20FH%20500" class="btn-wa" target="_blank">
+                            <i class="fa-brands fa-whatsapp"></i> طلب الشاحنة
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- شاحنة 3 -->
+            <div class="truck-card">
+                <div class="image-wrapper">
+                    <span class="tag">عرض خاص</span>
+                    <img src="https://images.unsplash.com/photo-1586191582056-a6f23f6e5203?auto=format&fit=crop&w=800&q=80" alt="مان TGX">
+                </div>
+                <div class="truck-details">
+                    <div class="truck-title">مان TGX 18.480 EfficientLine</div>
+                    <div class="truck-price">185,000 $</div>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-item"><i class="fa-solid fa-calendar"></i> الموديل: 2021</div>
+                        <div class="spec-item"><i class="fa-solid fa-gauge-high"></i> القوة: 480 حصان</div>
+                        <div class="spec-item"><i class="fa-solid fa-gears"></i> القير: أوتوماتيك</div>
+                        <div class="spec-item"><i class="fa-solid fa-truck"></i> الدفع: 4x2</div>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="https://wa.me/966500000000?text=استفسار%20عن%20مان%20TGX" class="btn-wa" target="_blank">
+                            <i class="fa-brands fa-whatsapp"></i> طلب الشاحنة
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2026 شركة القاطرة الفاخرة لتجارة الشاحنات</p>
+    </footer>
+
+</body>
+</html>
